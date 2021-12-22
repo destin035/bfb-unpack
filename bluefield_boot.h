@@ -52,68 +52,68 @@
  */
 
 union boot_image_header {
-        struct {
-                /* Magic number; must be BFB_IMGHDR_MAGIC. */
-                unsigned long magic:32;
-                /*
-                 * Major version number.  If this number is increased,
-                 * it indicates an incompatible change in the header format
-                 * or image contents, to the extent that software written
-                 * with a previous major version in mind should refuse to
-                 * process the new header.
-                 */
-                unsigned long major:4;
-                /*
-                 * Minor version number.  If this number is increased, it
-                 * indicates an upward-compatible change in the header
-                 * format or image contents, to the extent that software
-                 * written with a previous minor version in mind can still
-                 * process the new header.
-                 */
-                unsigned long minor:4;
-                /*
-                 * Reserved for future expansion.  Should be ignored by
-                 * readers and set to zero by writers.
-                 */
-                unsigned long reserved:12;
-                /*
-                 * Length of this header, in 8-byte words.  Software
-                 * processing the header should use this value to determine
-                 * the header's length; if this is longer than expected
-                 * based on the major/minor version numbers, ignore and
-                 * discard any extra words.
-                 */
-                unsigned long hdr_len:4;
-                /*
-                 * ID or type of the image.  This is the same value used
-                 * internally by ARM Trusted Firmware; e.g., BL2_ID, or 2,
-                 * for the BL2 image; BL33_CERT_ID, or 15, for the BL3-3
-                 * certificate; and so forth.
-                 */
-                unsigned long image_id:8;
-                /*
-                 * Length of the image in bytes.  Note that if the byte
-                 * count is not an integral multiple of 8, the image will
-                 * be padded with zeros to make it occupy an integral
-                 * number of 8-byte words in the stream, but this value is
-                 * the unpadded size.
-                 */
-                unsigned long image_len:32;
-                /*
-                 * CRC-32 of the image, including any added padding bytes.
-                 */
-                unsigned long image_crc:32;
-                /*
-                 * Bitmap of the IDs of any images following this one in
-                 * the stream, not including the image described by this
-                 * header.  Thus, if a stream included images of types
-                 * 0, 1, and 2, in that order, the following_images values
-                 * for the three headers would be 0x6, 0x4, and 0x0
-                 * respectively.
-                 */
-                unsigned long following_images:64;
-        } data;
-        unsigned long words[3];
+	struct {
+		/* Magic number; must be BFB_IMGHDR_MAGIC. */
+		unsigned long magic:32;
+		/*
+		 * Major version number.  If this number is increased,
+		 * it indicates an incompatible change in the header format
+		 * or image contents, to the extent that software written
+		 * with a previous major version in mind should refuse to
+		 * process the new header.
+		 */
+		unsigned long major:4;
+		/*
+		 * Minor version number.  If this number is increased, it
+		 * indicates an upward-compatible change in the header
+		 * format or image contents, to the extent that software
+		 * written with a previous minor version in mind can still
+		 * process the new header.
+		 */
+		unsigned long minor:4;
+		/*
+		 * Reserved for future expansion.  Should be ignored by
+		 * readers and set to zero by writers.
+		 */
+		unsigned long reserved:12;
+		/*
+		 * Length of this header, in 8-byte words.  Software
+		 * processing the header should use this value to determine
+		 * the header's length; if this is longer than expected
+		 * based on the major/minor version numbers, ignore and
+		 * discard any extra words.
+		 */
+		unsigned long hdr_len:4;
+		/*
+		 * ID or type of the image.  This is the same value used
+		 * internally by ARM Trusted Firmware; e.g., BL2_ID, or 2,
+		 * for the BL2 image; BL33_CERT_ID, or 15, for the BL3-3
+		 * certificate; and so forth.
+		 */
+		unsigned long image_id:8;
+		/*
+		 * Length of the image in bytes.  Note that if the byte
+		 * count is not an integral multiple of 8, the image will
+		 * be padded with zeros to make it occupy an integral
+		 * number of 8-byte words in the stream, but this value is
+		 * the unpadded size.
+		 */
+		unsigned long image_len:32;
+		/*
+		 * CRC-32 of the image, including any added padding bytes.
+		 */
+		unsigned long image_crc:32;
+		/*
+		 * Bitmap of the IDs of any images following this one in
+		 * the stream, not including the image described by this
+		 * header.  Thus, if a stream included images of types
+		 * 0, 1, and 2, in that order, the following_images values
+		 * for the three headers would be 0x6, 0x4, and 0x0
+		 * respectively.
+		 */
+		unsigned long following_images:64;
+	} data;
+	unsigned long words[3];
 };
 
 
